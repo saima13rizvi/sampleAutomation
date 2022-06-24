@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -74,15 +75,15 @@ public class TestBase {
 
 	private static WebDriver getDriver(String browserName) {
 		if (browserName.equalsIgnoreCase("chrome")) {
-			System.setProperty("webdriver.chrome.driver", TestUtils.WORKSAPCE_PATH + "//drivers//chromedriver.exe");
+			WebDriverManager.chromedriver().setup();
 			chromeOptions = new ChromeOptions();
 			chromeOptions.addArguments("--start-maximized");
 			return new ChromeDriver(chromeOptions);
 		} else if (browserName.equalsIgnoreCase("FF")) {
-			System.setProperty("webdriver.gecko.driver", "C://Users/Gorya/Desktop/Krishna_study/geckodriver.exe");
+			WebDriverManager.firefoxdriver().setup();
 			return new FirefoxDriver();
 		} else if (browserName.equalsIgnoreCase("IE")) {
-			System.setProperty("webdriver.ie.driver", TestUtils.WORKSAPCE_PATH + "//drivers//IEDriverServer.exe");
+			WebDriverManager.iedriver().setup();
 			return new InternetExplorerDriver();
 		}
 		return null;
